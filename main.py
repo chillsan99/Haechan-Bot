@@ -49,12 +49,14 @@ class MyStream(tweepy.StreamingClient):
     try:
       # Retweet
       client.retweet(tweet.id)
+      # like the tweet
+      client.like(tweet.id)
 
-      # Printing Tweet
+      # Printing Tweet to the console.
       print(tweet.text)
 
-      # Delay
-      time.sleep(300)
+      # Delay for 10 seconds.
+      time.sleep(10)
 
     except Exception as error:
       # Error
@@ -63,6 +65,5 @@ class MyStream(tweepy.StreamingClient):
 
 # Creating Stream object
 stream = MyStream(bearer_token=my_bearer_token)
-stream.add_rules(
-  tweepy.StreamRule("#HAECHAN OR #해찬 AND from:NCTsmtown -is:reply"))
+stream.add_rules(tweepy.StreamRule("#HAECHAN OR #해찬 -is:reply -is:retweet"))
 stream.filter()
